@@ -5,6 +5,7 @@
 package com.duoc.RopaStoreFinal.repository;
 
 import com.duoc.RopaStoreFinal.model.Inventario;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,5 +15,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface InventarioRepository extends JpaRepository<Inventario, Long>{
-    
+    Optional<Inventario> findByProductoId(Long productoId);
 }

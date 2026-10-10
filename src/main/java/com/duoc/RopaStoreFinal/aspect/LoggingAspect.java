@@ -32,7 +32,7 @@ public class LoggingAspect {
         return resultado;
     }
 
-    @AfterThrowing(pointcut = "execution(* com.tiendaropa.tienda.service..*(..))", throwing = "ex")
+    @AfterThrowing(pointcut = "execution(* com.duoc.RopaStoreFinal.service..*(..))", throwing = "ex")
     public void registrarError(JoinPoint joinPoint, Exception ex) {
         log.error("Error en {}: {}", joinPoint.getSignature().toShortString(), ex.getMessage());
     }

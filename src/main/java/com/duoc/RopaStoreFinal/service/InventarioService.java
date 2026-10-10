@@ -5,6 +5,7 @@
 package com.duoc.RopaStoreFinal.service;
 
 import com.duoc.RopaStoreFinal.exception.RecursoNoEncontradoException;
+import com.duoc.RopaStoreFinal.exception.StockInsuficienteException;
 import com.duoc.RopaStoreFinal.model.Inventario;
 import com.duoc.RopaStoreFinal.model.Producto;
 import com.duoc.RopaStoreFinal.repository.InventarioRepository;
@@ -23,7 +24,9 @@ public class InventarioService {
     private final InventarioRepository inventarioRepository;
     private final ProductoRepository productoRepository;
 
-    public Inventario crear(Producto producto) {
+    public Inventario crear(Long idProducto) {
+        Producto producto = productoRepository.findById(idProducto)
+            .orElseThrow(() -> new RecursoNoEncontradoException("Producto no encontrado"));
         Inventario inventario = new Inventario();
         inventario.setId(null);
         inventario.setProducto(producto);
@@ -43,7 +46,11 @@ public class InventarioService {
 
     public Inventario actualizarStock(Long id, int cantidad) {
         Inventario inventario = buscarPorId(id);
-        inventario.setStock(inventario.getStock() + cantidad);
+        int nuevoStock = inventario.getStock() + cantidad;
+        
+        if(nuevoStock < 0){
+            throw new StockInsuficienteException("Stock insuficiente. Stock actual: " + inventario.getStock());
+        }
         return inventarioRepository.save(inventario);
     }
 

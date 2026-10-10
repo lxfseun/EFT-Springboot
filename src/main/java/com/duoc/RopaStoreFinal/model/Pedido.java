@@ -43,7 +43,7 @@ public class Pedido {
     private int total;
     
     @Column(nullable = false)
-    private LocalDateTime fechaPedido;
+    private LocalDateTime fechaPedido = LocalDateTime.now();
     
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

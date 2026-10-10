@@ -6,6 +6,7 @@ package com.duoc.RopaStoreFinal.service;
 
 import com.duoc.RopaStoreFinal.exception.RecursoNoEncontradoException;
 import com.duoc.RopaStoreFinal.model.Producto;
+import com.duoc.RopaStoreFinal.repository.InventarioRepository;
 import com.duoc.RopaStoreFinal.repository.ProductoRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -19,16 +20,17 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ProductoService {
     private final ProductoRepository productoRepository;
+    private final InventarioRepository inventarioRepository;
     private final InventarioService inventarioService;
     
     public Producto crear(Producto producto){
         producto.setId(null);
         Producto nuevoProducto = productoRepository.save(producto);
-        inventarioService.crear(nuevoProducto);
+        inventarioService.crear(nuevoProducto.getId());
         return nuevoProducto;
     }
     
-    public List<Producto>listar(){
+    public List<Producto> listar(){
         return productoRepository.findAll();
     }
     
@@ -47,6 +49,8 @@ public class ProductoService {
     
     public void eliminar(Long id){
         Producto producto = buscarPorId(id);
+        inventarioRepository.findByProductoId(producto.getId())
+                .ifPresent(inventario -> inventarioRepository.delete(inventario));
         productoRepository.delete(producto);
     }
 }
