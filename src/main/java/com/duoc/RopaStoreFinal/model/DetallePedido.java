@@ -41,6 +41,6 @@ public class DetallePedido {
     private Producto producto;
     
     @Column(nullable=false)
-    @Positive(message="La cantidad no puede ser cero")
+    @Positive(message="La cantidad debe ser mayor a cero")
     private int cantidad;
 }

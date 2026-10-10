@@ -6,12 +6,13 @@ package com.duoc.RopaStoreFinal.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.Positive;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,10 +37,14 @@ public class Venta {
     
     @Column(nullable = false)
     private LocalDateTime fechaVenta;
-
+    
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @Positive(message = "El total debe ser mayor a cero")
-    private int total;
+    private MetodoVenta metodoVenta;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(nullable=false)
+    private EstadoVenta estadoVenta;
 
     @OneToOne
     @JoinColumn(name = "pedido_id", nullable = false, unique = true)

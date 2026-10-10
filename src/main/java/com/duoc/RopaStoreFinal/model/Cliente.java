@@ -29,7 +29,7 @@ public class Cliente {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     
     @Column(nullable = false)
     @NotBlank(message="El nombre es obligatorio")
