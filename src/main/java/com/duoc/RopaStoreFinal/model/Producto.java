@@ -21,10 +21,10 @@ import org.hibernate.annotations.Audited.Table;
  */
 
 @Entity
-@Table(name="PRODUCTO")
+@Table(name="productos")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor //descubrí que no es necesario escribir column en todos a menos que se vaya a personalizar, debido que jpa ya mapea el atributo sin esa anotación
 public class Producto {
     
     @Id
@@ -39,12 +39,6 @@ public class Producto {
     private String descripcion;
     
     @Column(nullable = false)
-    @NotNull(message = "El stock es obligatorio")
-    @PositiveOrZero(message = "El stock no puede ser negativo")
-    private int stock;
-    
-    @Column(nullable = false)
-    @NotNull(message = "El precio es obligatorio")
-    @Positive(message = "El precio debe ser mayor a 0")
+    @Positive(message = "El precio debe ser mayor a 0") //no es necesario notnull porque ya el positive exige que sea mayor que 0, además un tipo primitivo no puede ser null
     private int precio;
 }

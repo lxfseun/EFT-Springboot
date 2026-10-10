@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 @Slf4j //lombok y permite usar el log
 public class LoggingAspect {
 
-    @Around("execution(* com.tiendaropa.tienda.service..*(..))") //a la ejecución de métodos, a todos las clases que estén dentro de service sin immportar la cantidad de param
+    @Around("execution(* com.duoc.RopaStoreFinal.service..*(..))") //a la ejecución de métodos, a todos las clases que estén dentro de service sin immportar la cantidad de param
     public Object registrarServicio(ProceedingJoinPoint joinPoint) throws Throwable {
         String metodo = joinPoint.getSignature().toShortString(); //intercepta el método, joinpoint representa el método por ejecución
         log.info("Ejecutando {}", metodo);
