@@ -20,7 +20,8 @@ import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Audited.Table;
+import jakarta.persistence.Table;
+import jakarta.persistence.CascadeType;
 
 
 /**
@@ -53,6 +54,6 @@ public class Pedido {
     @JoinColumn(name="cliente_id", nullable=false)
     private Cliente cliente;
     
-    @OneToMany(mappedBy="pedido")
+    @OneToMany(mappedBy="pedido", cascade = CascadeType.ALL)
     private List<DetallePedido> detalles;
 }

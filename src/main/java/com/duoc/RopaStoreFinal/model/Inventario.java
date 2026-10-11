@@ -10,12 +10,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Audited.Table;
+import jakarta.persistence.Table;
 
 /**
  *
@@ -37,7 +37,7 @@ public class Inventario {
     @PositiveOrZero(message = "El stock no puede ser negativo")
     private int stock;
     
-    @ManyToOne
-    @JoinColumn(name="producto_id", nullable = false)
+    @OneToOne
+    @JoinColumn(name="producto_id", nullable = false, unique = true)
     private Producto producto;
 }

@@ -13,7 +13,7 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Audited.Table;
+import jakarta.persistence.Table;
 
 /**
  *

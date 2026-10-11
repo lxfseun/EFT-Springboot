@@ -14,7 +14,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Audited.Table;
+import jakarta.persistence.Table;
 
 /**
  *
@@ -39,12 +39,12 @@ public class Cliente {
     @NotBlank(message="El apellido es obligatorio")
     private String apellidoCliente;
     
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @NotBlank(message="El rut es obligatorio")
     private String rut;
     
     @Email
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @NotBlank(message="El correo es obligatorio")
     private String correo;
     

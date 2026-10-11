@@ -11,5 +11,6 @@ package com.duoc.RopaStoreFinal.model;
 public enum EstadoVenta {
     PENDIENTE,
     APROBADO,
-    RECHAZADO
+    RECHAZADO,
+    REEMBOLSADO
 }

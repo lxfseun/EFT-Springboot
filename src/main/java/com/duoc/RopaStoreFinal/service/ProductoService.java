@@ -8,6 +8,7 @@ import com.duoc.RopaStoreFinal.exception.RecursoNoEncontradoException;
 import com.duoc.RopaStoreFinal.model.Producto;
 import com.duoc.RopaStoreFinal.repository.InventarioRepository;
 import com.duoc.RopaStoreFinal.repository.ProductoRepository;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,8 @@ public class ProductoService {
     private final InventarioRepository inventarioRepository;
     private final InventarioService inventarioService;
     
+    
+    @Transactional
     public Producto crear(Producto producto){
         producto.setId(null);
         Producto nuevoProducto = productoRepository.save(producto);
@@ -47,6 +50,7 @@ public class ProductoService {
         return productoRepository.save(producto);
     }
     
+    @Transactional
     public void eliminar(Long id){
         Producto producto = buscarPorId(id);
         inventarioRepository.findByProductoId(producto.getId())

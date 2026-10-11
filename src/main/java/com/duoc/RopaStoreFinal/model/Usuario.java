@@ -4,6 +4,7 @@
  */
 package com.duoc.RopaStoreFinal.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -16,7 +17,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Audited.Table;
+import jakarta.persistence.Table;
 
 /**
  *
@@ -42,6 +43,7 @@ public class Usuario {
     @NotBlank(message = "El correo es obligatorio")
     private String correoUsuario;
     
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable=false)
     @NotBlank(message="La contraseña es obligatoria")
     private String contrasenna;

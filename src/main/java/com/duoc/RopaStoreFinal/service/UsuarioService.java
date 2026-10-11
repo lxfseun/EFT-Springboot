@@ -4,7 +4,9 @@
  */
 package com.duoc.RopaStoreFinal.service;
 
+import com.duoc.RopaStoreFinal.exception.DatosInvalidosException;
 import com.duoc.RopaStoreFinal.exception.RecursoNoEncontradoException;
+import com.duoc.RopaStoreFinal.model.Rol;
 import com.duoc.RopaStoreFinal.model.Usuario;
 import com.duoc.RopaStoreFinal.repository.UsuarioRepository;
 import java.util.List;
@@ -25,6 +27,7 @@ public class UsuarioService {
     public Usuario crear(Usuario usuario) {
         usuario.setId(null);        
         usuario.setContrasenna(passwordEncoder.encode(usuario.getContrasenna()));
+        usuario.setRol(Rol.CLIENTE);
         return usuarioRepository.save(usuario);
     }
 
@@ -41,7 +44,6 @@ public class UsuarioService {
         Usuario usuario = buscarPorId(id);
         usuario.setNombreUsuario(usuarioModificado.getNombreUsuario());
         usuario.setCorreoUsuario(usuarioModificado.getCorreoUsuario());
-        usuario.setRol(usuarioModificado.getRol());
         if(usuarioModificado.getContrasenna() != null && !usuarioModificado.getContrasenna().isBlank()){
             usuario.setContrasenna(passwordEncoder.encode(usuarioModificado.getContrasenna()));
         }
@@ -50,6 +52,9 @@ public class UsuarioService {
 
     public void eliminar(Long id) {
         Usuario usuario = buscarPorId(id);
+        if (usuario.getRol() == Rol.EMPLEADO) {
+            throw new DatosInvalidosException("No se puede eliminar a un empleado");
+        }
         usuarioRepository.delete(usuario);
     }
 }

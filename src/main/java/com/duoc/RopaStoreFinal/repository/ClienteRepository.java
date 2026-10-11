@@ -5,6 +5,7 @@
 package com.duoc.RopaStoreFinal.repository;
 
 import com.duoc.RopaStoreFinal.model.Cliente;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,5 +15,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente,Long>{
-    
+    boolean existsByCorreo(String correo);
+    boolean existsByRut(String rut);
+    Optional<Cliente> findByCorreo(String correo);
 }
