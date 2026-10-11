@@ -34,14 +34,15 @@ public class SeguridadConfig {
 
     @Value("${app.jwt.secret}")
     private String secreto;
-
+    
     @Bean
     public SecurityFilterChain filtroSeguridad(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
             .sessionManagement(sesion -> sesion.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .headers(h -> h.frameOptions(f -> f.sameOrigin()))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/**", "/actuator/health").permitAll()
+                .requestMatchers("/api/auth/**", "/actuator/health", "/h2-console/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/productos/**", "/api/inventarios/producto/*").authenticated()
                 .requestMatchers("/api/mi/**").hasRole("CLIENTE")
                 .requestMatchers("/api/**", "/actuator/**").hasRole("EMPLEADO")

@@ -34,6 +34,7 @@ public class PedidoService {
     private final ProductoRepository productoRepository;
     private final VentaRepository ventaRepository;
     private final InventarioService inventarioService;
+    private final NotificacionService notificacionService;
 
     @Transactional
     public Pedido crear(Pedido pedido) {
@@ -72,7 +73,11 @@ public class PedidoService {
         pedido.setEstadoPedido(EstadoPedido.PENDIENTE);
         pedido.setCliente(cliente);
         pedido.setTotal(total);
-        return pedidoRepository.save(pedido);
+        
+        Pedido guardado = pedidoRepository.save(pedido);
+        notificacionService.enviar(cliente.getCorreo(), "Pedido recibido",
+                "Tu pedido #" + guardado.getId() + " fue recibido por un total de $" + guardado.getTotal());
+        return guardado;
     }
 
     public List<Pedido> listar() {
@@ -115,7 +120,10 @@ public class PedidoService {
         }
 
         pedido.setEstadoPedido(nuevoEstado);
-        return pedidoRepository.save(pedido);
+        Pedido guardado = pedidoRepository.save(pedido);
+        notificacionService.enviar(pedido.getCliente().getCorreo(), "Pedido " + nuevoEstado,
+                "Tu pedido #" + pedido.getId() + " ahora está en estado " + nuevoEstado);
+        return guardado;
     }
 
     @Transactional

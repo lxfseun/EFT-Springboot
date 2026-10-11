@@ -30,11 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClienteController {
     private final ClienteService clienteService;
 
-    @PostMapping
-    public ResponseEntity<Cliente> crear(@Valid @RequestBody Cliente cliente) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.crear(cliente));
-    }
-
     @GetMapping
     public ResponseEntity<List<Cliente>> listar() {
         return ResponseEntity.ok(clienteService.listar());

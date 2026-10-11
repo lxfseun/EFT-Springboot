@@ -6,9 +6,11 @@ package com.duoc.RopaStoreFinal.controller;
 
 import com.duoc.RopaStoreFinal.dto.PerfilRequest;
 import com.duoc.RopaStoreFinal.model.Cliente;
+import com.duoc.RopaStoreFinal.model.Notificacion;
 import com.duoc.RopaStoreFinal.model.Pedido;
 import com.duoc.RopaStoreFinal.model.Venta;
 import com.duoc.RopaStoreFinal.service.MiCuentaService;
+import com.duoc.RopaStoreFinal.service.NotificacionService;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class MiCuentaController {
     private final MiCuentaService miCuentaService;
+    private final NotificacionService notificacionService;
 
     @GetMapping("/perfil")
     public ResponseEntity<Cliente> perfil(Authentication auth) {
@@ -73,5 +76,10 @@ public class MiCuentaController {
     @GetMapping("/ventas")
     public ResponseEntity<List<Venta>> listarVentas(Authentication auth) {
         return ResponseEntity.ok(miCuentaService.listarVentas(auth.getName()));
+    }
+
+    @GetMapping("/notificaciones")
+    public ResponseEntity<List<Notificacion>> notificaciones(Authentication auth) {
+        return ResponseEntity.ok(notificacionService.listarPorCorreo(auth.getName()));
     }
 }
